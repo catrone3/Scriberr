@@ -26,6 +26,7 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - SCRIBO_FILES=/scriberr
+      - MAX_FILE_SIZE=524288222
     volumes:
       - ./.dockerdata/pb_data:/app/db
       - ./.dockerdata/scriberr:/scriberr
