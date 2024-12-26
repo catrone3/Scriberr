@@ -1,5 +1,5 @@
 import { env } from '$env/dynamic/private';
-
+maxFileSize=env.MAXFILESIZE
 export async function ensureCollectionExists(pb) {
 	// const pb = new PocketBase('http://localhost:8090');
 	try {
@@ -21,14 +21,14 @@ export async function ensureCollectionExists(pb) {
 						type: 'file',
 						options: {
 							maxSelect: 1,
-							maxSize: 524288222
+							maxSize: maxFileSize
 						}
 					},
 					{
 						name: 'transcript',
 						type: 'json',
 						options: {
-							maxSize: 524288222
+							maxSize: maxFileSize
 						}
 					},
 					{ name: 'title', type: 'text' },
@@ -37,12 +37,12 @@ export async function ensureCollectionExists(pb) {
 					{ name: 'processed', type: 'bool' },
 					{ name: 'diarized', type: 'bool' },
 					{ name: 'model', type: 'text' },
-					{ name: 'peaks', type: 'json', options: { maxSize: 524288000 } },
+					{ name: 'peaks', type: 'json', options: { maxSize: maxFileSize } },
 					{ name: 'date', type: 'date', required: true },
 					{
 						name: 'diarizedtranscript', type: 'json',
 						options: {
-							maxSize: 524288222
+							maxSize: maxFileSize
 						}
 					}
 				]
