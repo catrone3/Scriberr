@@ -19,14 +19,14 @@ export async function ensureCollectionExists(pb) {
 						type: 'file',
 						options: {
 							maxSelect: 1,
-							maxSize: 524288222
+							maxSize: 10737418240
 						}
 					},
 					{
 						name: 'transcript',
 						type: 'json',
 						options: {
-							maxSize: 524288222
+							maxSize: 10737418240
 						}
 					},
 					{ name: 'title', type: 'text' },
@@ -35,12 +35,12 @@ export async function ensureCollectionExists(pb) {
 					{ name: 'processed', type: 'bool' },
 					{ name: 'diarized', type: 'bool' },
 					{ name: 'model', type: 'text' },
-					{ name: 'peaks', type: 'json', options: { maxSize: 524288000 } },
+					{ name: 'peaks', type: 'json', options: { maxSize: 10737418240 } },
 					{ name: 'date', type: 'date', required: true },
 					{
 						name: 'diarizedtranscript', type: 'json',
 						options: {
-							maxSize: 524288222
+							maxSize: 10737418240
 						}
 					}
 				]
@@ -64,8 +64,8 @@ export async function ensureCollectionExists(pb) {
 					{ name: 'default_template', type: 'text' },
 					{ name: 'threads', type: 'number', required: true },
 					{ name: 'processors', type: 'number', required: true },
-					{ name: 'diarize', type: 'bool'},
-					{ name: 'wizard', type: 'bool'}
+					{ name: 'diarize', type: 'bool' },
+					{ name: 'wizard', type: 'bool' }
 				]
 			});
 
