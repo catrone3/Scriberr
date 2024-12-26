@@ -19,14 +19,14 @@ export async function ensureCollectionExists(pb) {
 						type: 'file',
 						options: {
 							maxSelect: 1,
-							maxSize: 10737418240
+							maxSize: 5368709120
 						}
 					},
 					{
 						name: 'transcript',
 						type: 'json',
 						options: {
-							maxSize: 10737418240
+							maxSize: 5368709120
 						}
 					},
 					{ name: 'title', type: 'text' },
@@ -35,12 +35,12 @@ export async function ensureCollectionExists(pb) {
 					{ name: 'processed', type: 'bool' },
 					{ name: 'diarized', type: 'bool' },
 					{ name: 'model', type: 'text' },
-					{ name: 'peaks', type: 'json', options: { maxSize: 10737418240 } },
+					{ name: 'peaks', type: 'json', options: { maxSize: 5368709120 } },
 					{ name: 'date', type: 'date', required: true },
 					{
 						name: 'diarizedtranscript', type: 'json',
 						options: {
-							maxSize: 10737418240
+							maxSize: 5368709120
 						}
 					}
 				]

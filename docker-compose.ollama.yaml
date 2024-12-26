@@ -40,12 +40,12 @@ services:
     entrypoint:
     environment:
       - OLLAMA_ORIGINS="*"
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - count: all
-    #           capabilities: [gpu]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - count: all
+              capabilities: [gpu]
     volumes:
       - ./.dockerdata/ollama:/root/.ollama
 
