@@ -1,5 +1,5 @@
 import { env } from '$env/dynamic/private';
-const maxFileSize = Number(env.MAX_FILE_SIZE)
+const maxFileSize = 10737418240
 export async function ensureCollectionExists(pb) {
 	// const pb = new PocketBase('http://localhost:8090');
 	try {
