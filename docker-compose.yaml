@@ -27,6 +27,7 @@ services:
       - SCRIBO_FILES=/scriberr
       - DEV_MODE=false
       - CONCURRENCY=1
+      - MAX_FILE_SIZE=524288222
     volumes:
       - ./scriberr/pb_data:/app/db
       - ./scriberr:/scriberr
