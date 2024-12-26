@@ -5,6 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
+      pocketbase:
+        condition: service_started
       redis:
         condition: service_started
       ollama:
@@ -40,12 +42,12 @@ services:
     entrypoint:
     environment:
       - OLLAMA_ORIGINS="*"
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - count: all
-    #           capabilities: [gpu]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - count: all
+              capabilities: [gpu]
     volumes:
       - ./.dockerdata/ollama:/root/.ollama
 
@@ -55,3 +57,14 @@ services:
       - ollama
     command: >
       http://ollama:11434/api/pull -d '{"name":"llama3.2"}'
+  
+  pocketbase:
+    image: ghcr.io/rishikanthc/pocketbase:22.22
+    environment:
+      - POCKETBASE_ADMIN_EMAIL=admin@example.com  # Replace with your admin email
+      - POCKETBASE_ADMIN_PASSWORD=1234567890  # Replace with your admin password
+    ports:
+      - "8080:8080"  # Expose PocketBase on port 8080
+    volumes:
+      - ./pb_data:/pb/pb_data  # Mount the PocketBase data directory for persistence
+    restart: unless-stopped 
