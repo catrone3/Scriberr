@@ -21,14 +21,14 @@ export async function ensureCollectionExists(pb) {
 						type: 'file',
 						options: {
 							maxSelect: 1,
-							maxSize: 10737418240
+							maxSize: 524288222
 						}
 					},
 					{
 						name: 'transcript',
 						type: 'json',
 						options: {
-							maxSize: 10737418240
+							maxSize: 524288222
 						}
 					},
 					{ name: 'title', type: 'text' },
@@ -37,12 +37,12 @@ export async function ensureCollectionExists(pb) {
 					{ name: 'processed', type: 'bool' },
 					{ name: 'diarized', type: 'bool' },
 					{ name: 'model', type: 'text' },
-					{ name: 'peaks', type: 'json', options: { maxSize: 10737418240 } },
+					{ name: 'peaks', type: 'json', options: { maxSize: 524288000 } },
 					{ name: 'date', type: 'date', required: true },
 					{
 						name: 'diarizedtranscript', type: 'json',
 						options: {
-							maxSize: 10737418240
+							maxSize: 524288222
 						}
 					}
 				]
@@ -57,7 +57,7 @@ export async function ensureCollectionExists(pb) {
 	try {
 		const collections = await pb.collections.getList();
 		const settingsCollection = collections.items.find((col) => col.name === 'settings');
-		
+
 		if (!settingsCollection) {
 			// Create "settings" collection if it doesn't exist
 			await pb.collections.create({
@@ -100,43 +100,43 @@ export async function ensureCollectionExists(pb) {
 
 	// Check if the "templates" collection exists
 	try {
-	const collections = await pb.collections.getList();
-	const templateCollection = collections.items.find((col) => col.name === 'templates');
+		const collections = await pb.collections.getList();
+		const templateCollection = collections.items.find((col) => col.name === 'templates');
 
-	if (!templateCollection) {
-		// Create "templates" collection if it doesn't exist
-		await pb.collections.create({
-			name: 'templates',
-			schema: [
-				{ name: 'title', type: 'text' },
-				{ name: 'prompt', type: 'text' }
-			]
-		});
-		console.log('Template collection created.');
+		if (!templateCollection) {
+			// Create "templates" collection if it doesn't exist
+			await pb.collections.create({
+				name: 'templates',
+				schema: [
+					{ name: 'title', type: 'text' },
+					{ name: 'prompt', type: 'text' }
+				]
+			});
+			console.log('Template collection created.');
 
-		// Create a default template record
-		await pb.collection('templates').create({
-			title: 'Default template',
-			prompt: 'Provide a concise and comprehensive summary for the transcript.'
-		});
-		console.log('Default template record created.');
-	} else {
-		console.log('Templates collection already exists.');
-
-		// Check if the default template record exists
-		const templateRecords = await pb.collection('templates').getList(1, 50, { filter: `title='Default template'` });
-		if (templateRecords.items.length === 0) {
-			// Create default template record if it doesn't exist
+			// Create a default template record
 			await pb.collection('templates').create({
 				title: 'Default template',
 				prompt: 'Provide a concise and comprehensive summary for the transcript.'
 			});
 			console.log('Default template record created.');
 		} else {
-			console.log('Default template record already exists.');
+			console.log('Templates collection already exists.');
+
+			// Check if the default template record exists
+			const templateRecords = await pb.collection('templates').getList(1, 50, { filter: `title='Default template'` });
+			if (templateRecords.items.length === 0) {
+				// Create default template record if it doesn't exist
+				await pb.collection('templates').create({
+					title: 'Default template',
+					prompt: 'Provide a concise and comprehensive summary for the transcript.'
+				});
+				console.log('Default template record created.');
+			} else {
+				console.log('Default template record already exists.');
+			}
 		}
-	}
-} catch (error) {
+	} catch (error) {
 		console.error('Error ensuring templates collection exists:', error);
 	}
 }
