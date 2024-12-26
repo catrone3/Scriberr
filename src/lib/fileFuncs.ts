@@ -1,9 +1,10 @@
 import { env } from '$env/dynamic/private';
-const maxFileSize = 10737418240
-export async function ensureCollectionExists(pb) {
+import PocketBase from 'pocketbase';
+
+export async function ensureCollectionExists(pb: PocketBase, maxFileSize: String) {
 	// const pb = new PocketBase('http://localhost:8090');
 	try {
-		await pb.admins.authWithPassword(env.POCKETBASE_ADMIN_EMAIL, env.POCKETBASE_ADMIN_PASSWORD);
+		await pb.admins.authWithPassword(String(env.POCKETBASE_ADMIN_EMAIL), String(env.POCKETBASE_ADMIN_PASSWORD));
 	} catch (error) {
 		console.error(`Unable to login to db: ${error.message}`, {});
 	}

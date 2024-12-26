@@ -9,11 +9,12 @@ import { ensureCollectionExists } from '$lib/fileFuncs';
 
 // Create the queue
 export const wizardQueue = new Queue('wizardQueue', {
-	connection: { host: env.REDIS_HOST, port: env.REDIS_PORT }
+	connection: { host: env.REDIS_HOST, port: Number(env.REDIS_PORT) }
 });
 const pb = new PocketBase(env.POCKETBASE_URL);
+const maxFileSize = String(env.MAX_FILE_SIZE);
 pb.autoCancellation(false);
-await pb.admins.authWithPassword(env.POCKETBASE_ADMIN_EMAIL, env.POCKETBASE_ADMIN_PASSWORD);
+await pb.admins.authWithPassword(String(env.POCKETBASE_ADMIN_EMAIL), String(env.POCKETBASE_ADMIN_PASSWORD));
 
 // Remove all jobs from the queue
 async function clearQueue() {
@@ -125,7 +126,7 @@ const worker = new Worker(
 	'wizardQueue',
 	async (job) => {
 		console.log('hello world from wizard');
-		ensureCollectionExists(pb);
+		ensureCollectionExists(pb, maxFileSize);
 		let modelPath;
 		let cmd;
 
