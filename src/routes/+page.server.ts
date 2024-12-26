@@ -22,5 +22,5 @@ export async function load({ params, fetch, locals }) {
 
 
 	// Return both records and fileUrls
-	return { records, fileUrls, templates };
+	return { records, fileUrls, templates, pb };
 }
