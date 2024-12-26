@@ -16,7 +16,6 @@ services:
 
     ports:
       - "3000:3000"
-      - "8080:8080" # Optionally expose DB UI
       - "9243:9243" # Optionally expose JobQueue UI
     environment:
       - OPENAI_API_KEY=<reallylongsecretkey>
